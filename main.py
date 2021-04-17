@@ -94,6 +94,7 @@ def sequenceCompare():
     print("Phylogenetic Tree Legend")
     print("Original Sequence:")
     print("a-Brazilian Zika Strain Envelope Protein")
+
     print("\nBasic Data Set")
     print("b-Vietnam Zika Strain Envelope Protein")
     print("c-Puerto Rico Zika Strain Envelope Protein")
@@ -112,44 +113,44 @@ def sequenceCompare():
     print("p-Rio de Janeiro Zika Strain Envelope Protein")
     print("q-Colombia Zika Strain Envelope Protein")
     print("r-Boracay Zika Strain Envelope Protein")
-    print("s-Rio de Janeiro 2 Zika Strain Envelope Protein")
+    print("s-2nd Rio de Janeiro Zika Strain Envelope Protein")
     print("t-Jamaica Zika Strain Envelope Protein")
     print("u-Dominican Republic Zika Strain Envelope Protein")
     print("v-Cuiaba Zika Strain Envelope Protein")
     print("w-India Zika Strain Envelope Protein")
     print("x-Belo Horizonte Zika Strain Envelope Protein")
-    print("y-India 2 Zika Strain Envelope Protein")
-    print("z-Mexico 2 Zika Strain Envelope Protein")
+    print("y-2nd India Zika Strain Envelope Protein")
+    print("z-2nd Mexico Zika Strain Envelope Protein")
+
     print("\nRelated Data Set")
-    print("aa-(DNUS-Bat-E-Esp)")
-    print("ab-HIV Netherlands")
-    print("ac-Septicimia")
-    print("ad-XMRV")
-    print("ae-Hepatitis C Egypt")
-    print("af-Hepatitis C France")
-    print("ag-HIV Japan")
-    print("ah-HIV Italy")
-    print("ai-Dengue")
-    print("aj-Dengue 2")
-    print("ak-Encephalitis")
-    print("al-Orf")
-    print("am-Orf2")
-    print("an-Herpes")
-    print("ao-Sheeppox")
-    print("ap-White Spot")
-    print("aq-E coli")
-    print("ar-New Castle")
-    print("as-Hanta")
-    print("at-Isla Vista")
-    print("au-AnemiaVirus")
-    print("av-AnemiaVirus 2")
-    print("aw-SIV")
-    print("ax-SIV2")
-    print("ay-Horse Herpes")
-
-    # takes tree file and constructs a tree using biopython
+    print("aa-Bat Flavivirus Envelope Protein")
+    print("ab-Netherlands HIV Strain Envelope Protein")
+    print("ac-Septicemia Envelope Protein")
+    print("ad-XMRV Envelope Protein")
+    print("ae-Egypt Hepatitis C Strain Envelope Protein")
+    print("af-France Hepatitis C Strain Envelope Protein")
+    print("ag-Japan HIV Strain Envelope Protein")
+    print("ah-Italy HIV Strain Envelope Protein")
+    print("ai-Dengue Envelope Protein")
+    print("aj-2nd Dengue Envelope Protein")
+    print("ak-Encephalitis Envelope Protein")
+    print("al-Orf Virus Envelope Protein")
+    print("am-2nd Orf Virus Envelope Protein")
+    print("an-Herpes Envelope Protein")
+    print("ao-Sheeppox Envelope Protein")
+    print("ap-Shrimp White Spot Envelope Protein")
+    print("aq-E Coli Envelope Protein")
+    print("ar-New Castle Virus Envelope Protein")
+    print("as-Hanta Virus Envelope Protein")
+    print("at-Isla Vista Virus Envelope Protein")
+    print("au-Equine Infectious Anemia Envelope Protein")
+    print("av-2nd Equine Infectious Anemia Envelope Protein")
+    print("aw-SIV Envelope Protein")
+    print("ax-2nd SIV Envelope Protein")
+    print("ay-Equine Herpes Envelope Protein")
 
 
+# takes tree file and constructs a tree using biopython
 def drawTree(treeFile):
     tree = Phylo.read(StringIO(treeFile), "newick")
     Phylo.draw_ascii(tree)
@@ -239,7 +240,7 @@ def computeTree(array):
                  0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                  0, 0]
 
-    # while labels are avaliable to be joined
+    # while labels are available to be joined
     while len(labels) > 1:
         print("\nTable being analyzed:")
         for i in range(len(arrayData)):
@@ -248,11 +249,11 @@ def computeTree(array):
         x, y = lowValue(arrayData)
 
         # merges array entries for x,y by averaging data
-        distancesx = (arrayData[x][y] / 2) - distances[x]
-        distancesy = (arrayData[x][y] / 2) - distances[y]
+        distancesX = (arrayData[x][y] / 2) - distances[x]
+        distancesY = (arrayData[x][y] / 2) - distances[y]
         distances[x] = (arrayData[x][y] / 2)
         distances[y] = (arrayData[x][y] / 2)
-        mergeArray(arrayData, x, y, labels, distances, distancesx, distancesy)
+        mergeArray(arrayData, x, y, labels, distances, distancesX, distancesY)
 
     return labels[0]
 
@@ -278,20 +279,20 @@ def lowValue(array):
 
 
 # merges array entries for x,y by averaging data
-def mergeArray(array, x, y, labels, distance, distancex, distancey):
+def mergeArray(array, x, y, labels, distance, distanceX, distanceY):
     # makes sure array is only worked on left side, swap if not
     if y < x:
         x, y = y, x
-        tempy = distancey
-        distancey = distancex
-        distancex = tempy
+        tempY = distanceY
+        distanceY = distanceX
+        distanceX = tempY
 
-    distancex = str(distancex)
-    distancey = str(distancey)
+    distanceX = str(distanceX)
+    distanceY = str(distanceY)
     # create new label for merged data
-    labels[x] = "(" + labels[x] + ":" + distancex + "," + labels[y] + ":" + distancey + ")"
+    labels[x] = "(" + labels[x] + ":" + distanceX + "," + labels[y] + ":" + distanceY + ")"
 
-    # recontruct the x row
+    # reconstruct the x row
     row = []
     for i in range(0, x):
         row.append((array[x][i] + array[y][i]) / 2)
@@ -316,6 +317,7 @@ def mergeArray(array, x, y, labels, distance, distancex, distancey):
     del distance[y]
 
 
+#Runs Phylogenetic Tree Program
 if __name__ == '__main__':
     print("Comparing sequences of Zika Strain Envelope Protein...\n")
     sequenceCompare()
